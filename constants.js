@@ -1,4 +1,4 @@
-export const prefix =
+const prefix =
   '024' ||
   '054' ||
   '055' ||
@@ -32,11 +32,7 @@ const bankIDs = {
   },
 };
 
-export const getCode = data => {
-  if (!data) {
-    return 'No data';
-  }
-
+const getCode = data => {
   const slicedPhone = data.slice(0, 3);
 
   if (networkCodes[0].mtn.includes(slicedPhone)) {
@@ -47,7 +43,5 @@ export const getCode = data => {
     return bankIDs.vodafone.code;
   }
 
-  if (networkCodes[2].airteltigo.includes(slicedPhone)) {
-    return bankIDs.airteltigo.code;
-  }
+  return bankIDs.airteltigo.code;
 };

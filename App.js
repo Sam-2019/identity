@@ -8,11 +8,14 @@
 
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {parsePhoneNumber} from 'awesome-phonenumber';
+import {prefix} from './constants';
 
 import {searchPaystack, searchTruecaller} from './functions';
 
 const App = () => {
   const [loading, setLoading] = React.useState(false);
+  let countryCode = 'GH';
 
   const [text, updateText] = React.useState(null);
   const [data, setData] = React.useState(null);
@@ -51,8 +54,15 @@ const App = () => {
       loading: true,
     });
 
-    const resultTruecaller = searchTruecaller(text);
-    const resultPaystack = searchPaystack(text);
+    const pn = parsePhoneNumber(text, countryCode);
+
+    if (pn.isValid() === false) {
+      setData('Invalid phone number');
+      return;
+    }
+
+    const resultTruecaller = searchTruecaller(pn);
+    const resultPaystack = searchPaystack(pn);
 
     if (resultPaystack) {
       setTruecallerData({
@@ -73,6 +83,13 @@ const App = () => {
   };
 
   var inputHandler = text => {
+    let result = text.startsWith(prefix);
+
+    if (!result) {
+      console.log('error');
+      return;
+    }
+
     updateText(text);
   };
   return (

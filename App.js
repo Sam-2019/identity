@@ -9,9 +9,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import {parsePhoneNumber} from 'awesome-phonenumber';
-import {prefix} from './constants';
-
-import {searchPaystack, searchTruecaller} from './functions';
+import {stack} from './config';
+import axios from 'axios';
 
 const App = () => {
   const [loading, setLoading] = React.useState(false);
@@ -31,65 +30,29 @@ const App = () => {
   });
 
   const handlePress = async () => {
-    if (!text) {
-      setData('No data');
-      setTruecallerData({
-        data: null,
-      });
-      setPaystackData({
-        data: null,
-        loading: false,
-      });
-
-      return;
-    }
-
-    setLoading(true);
-
-    setTruecallerData({
-      loading: true,
-    });
-
-    setPaystackData({
-      loading: true,
-    });
-
     const pn = parsePhoneNumber(text, countryCode);
+    const phone = pn.getNumber('significant');
+    const updated = `0${phone}`;
+    const accountCode = getCode(updated);
+    console.log(updated);
 
-    if (pn.isValid() === false) {
-      setData('Invalid phone number');
-      return;
-    }
-
-    const resultTruecaller = searchTruecaller(pn);
-    const resultPaystack = searchPaystack(pn);
-
-    if (resultPaystack) {
-      setTruecallerData({
-        data: resultTruecaller._W,
-        loading: false,
+    axios
+      .get(
+        `https://api.paystack.co/bank/resolve?account_number=${updated}&bank_code=${accountCode}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + stack,
+          },
+        },
+      )
+      .then(res => {
+        const posts = res.data;
+        setPaystackData({data: JSON.stringify(posts.data)});
       });
-    }
-
-    if (resultPaystack) {
-      setPaystackData({
-        data: resultPaystack,
-        loading: false,
-      });
-    }
-
-    setLoading(false);
-    setData('');
   };
 
   var inputHandler = text => {
-    let result = text.startsWith(prefix);
-
-    if (!result) {
-      console.log('error');
-      return;
-    }
-
     updateText(text);
   };
   return (
@@ -109,7 +72,7 @@ const App = () => {
 
       <View>{loading && <Text>Loading....</Text>}</View>
 
-      <View>{data ? <Text>No data</Text> : null}</View>
+      <View>{data ? <Text>{data}</Text> : null}</View>
 
       <View>
         {truecallerData.data && <Text>Truecaller: {truecallerData.data}</Text>}
@@ -145,3 +108,53 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+const prefix =
+  '024' ||
+  '054' ||
+  '055' ||
+  '059' ||
+  '025' ||
+  '020' ||
+  '050' ||
+  '027' ||
+  '057' ||
+  '026' ||
+  '056';
+
+const networkCodes = [
+  {mtn: ['024', '054', '055', '059', '025']},
+  {vodafone: ['020', '050']},
+  {airteltigo: ['027', '057', '026', '056']},
+];
+
+const bankIDs = {
+  mtn: {
+    id: 28,
+    code: 'MTN',
+  },
+  vodafone: {
+    id: 66,
+    code: 'VOD',
+  },
+  airteltigo: {
+    id: 29,
+    code: 'ATL',
+  },
+};
+
+const getCode = data => {
+  const slicedPhone = data.slice(0, 3);
+
+  console.log(slicedPhone);
+
+  if (networkCodes[0].mtn.includes(slicedPhone)) {
+    return bankIDs.mtn.code;
+  }
+
+  if (networkCodes[1].vodafone.includes(slicedPhone)) {
+    return bankIDs.vodafone.code;
+  }
+
+  return bankIDs.airteltigo.code;
+};

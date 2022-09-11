@@ -10,17 +10,19 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@freakycoder/react-native-bounceable": "^1.0.3",
     "@gorhom/bottom-sheet": "^4.4.3",
-    "@paraboly/react-native-card": "Paraboly/react-native-card",
+    "@paraboly/react-native-card": "^1.0.3",
     "@react-navigation/native": "^6.0.11",
     "@th3rdwave/react-navigation-bottom-sheet": "^0.2.2",
     "awesome-phonenumber": "^3.3.0",
-    "paystack-api": "^2.0.6",
+    "axios": "^0.27.2",
     "react": "18.0.0",
     "react-native": "0.69.4",
+    "react-native-dynamic-vector-icons": "^1.2.0",
     "react-native-gesture-handler": "^2.5.0",
     "react-native-reanimated": "^2.9.1",
-    "truecallerjs": "^1.1.1"
+    "react-native-vector-icons": "^9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

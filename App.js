@@ -9,7 +9,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import {parsePhoneNumber} from 'awesome-phonenumber';
-import {stack} from './config';
+import {localhost} from './config';
 import axios from 'axios';
 
 const App = () => {
@@ -17,44 +17,51 @@ const App = () => {
   let countryCode = 'GH';
 
   const [text, updateText] = React.useState(null);
-  const [data, setData] = React.useState(null);
-
-  const [paystackData, setPaystackData] = React.useState({
-    data: null,
-    loading: false,
-  });
-
-  const [truecallerData, setTruecallerData] = React.useState({
-    data: null,
-    loading: false,
-  });
+  const [message, setMessage] = React.useState(null);
+  const [data, setData] = React.useState([]);
 
   const handlePress = async () => {
+    setLoading(true);
+    setMessage(null);
     const pn = parsePhoneNumber(text, countryCode);
+
+    if (pn.isValid() === false) {
+      setLoading(false);
+      setMessage('Invalid Number');
+      return;
+    }
+
     const phone = pn.getNumber('significant');
     const updated = `0${phone}`;
-    const accountCode = getCode(updated);
-    console.log(updated);
-
-    axios
-      .get(
-        `https://api.paystack.co/bank/resolve?account_number=${updated}&bank_code=${accountCode}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + stack,
-          },
-        },
-      )
-      .then(res => {
-        const posts = res.data;
-        setPaystackData({data: JSON.stringify(posts.data)});
-      });
+    try {
+      axios
+        .get(`https://name-node-rest-api.herokuapp.com/api/id/${updated}`)
+        .then(res => {
+          console.log({res: res.data});
+          const posts = res.data;
+          setData(posts);
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   var inputHandler = text => {
     updateText(text);
   };
+
+  const list = () => {
+    return data.map(( element, index) => {
+  
+      return (
+        <View key={index} style={{margin: 10}}>
+          <Text>{JSON.stringify(element)}</Text>
+        </View>
+      );
+    });
+  };
+
   return (
     <View>
       <View style={styles.container}>
@@ -72,15 +79,19 @@ const App = () => {
 
       <View>{loading && <Text>Loading....</Text>}</View>
 
-      <View>{data ? <Text>{data}</Text> : null}</View>
+      <View>{message && <Text>{message}</Text>}</View>
 
-      <View>
+      {/* <View>{data ? <Text>{data}</Text> : null}</View> */}
+
+      <View>{data.length === 0 ? null : list()}</View>
+
+      {/* <View>
         {truecallerData.data && <Text>Truecaller: {truecallerData.data}</Text>}
       </View>
 
       <View>
         {paystackData.data && <Text>Paystack: {paystackData.data}</Text>}
-      </View>
+      </View> */}
     </View>
   );
 };

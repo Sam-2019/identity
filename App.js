@@ -8,73 +8,60 @@
 
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
-
-import {searchPaystack, searchTruecaller} from './functions';
+import {parsePhoneNumber} from 'awesome-phonenumber';
+import {localhost} from './config';
+import axios from 'axios';
 
 const App = () => {
   const [loading, setLoading] = React.useState(false);
+  let countryCode = 'GH';
 
   const [text, updateText] = React.useState(null);
-  const [data, setData] = React.useState(null);
-
-  const [paystackData, setPaystackData] = React.useState({
-    data: null,
-    loading: false,
-  });
-
-  const [truecallerData, setTruecallerData] = React.useState({
-    data: null,
-    loading: false,
-  });
+  const [message, setMessage] = React.useState(null);
+  const [data, setData] = React.useState([]);
 
   const handlePress = async () => {
-    if (!text) {
-      setData('No data');
-      setTruecallerData({
-        data: null,
-      });
-      setPaystackData({
-        data: null,
-        loading: false,
-      });
+    setLoading(true);
+    setMessage(null);
+    const pn = parsePhoneNumber(text, countryCode);
 
+    if (pn.isValid() === false) {
+      setLoading(false);
+      setMessage('Invalid Number');
       return;
     }
 
-    setLoading(true);
-
-    setTruecallerData({
-      loading: true,
-    });
-
-    setPaystackData({
-      loading: true,
-    });
-
-    const resultTruecaller = searchTruecaller(text);
-    const resultPaystack = searchPaystack(text);
-
-    if (resultPaystack) {
-      setTruecallerData({
-        data: resultTruecaller._W,
-        loading: false,
-      });
+    const phone = pn.getNumber('significant');
+    const updated = `0${phone}`;
+    try {
+      axios
+        .get(`https://name-node-rest-api.herokuapp.com/api/id/${updated}`)
+        .then(res => {
+          console.log({res: res.data});
+          const posts = res.data;
+          setData(posts);
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
     }
-
-    if (resultPaystack) {
-      setPaystackData({
-        data: resultPaystack,
-        loading: false,
-      });
-    }
-
-    setLoading(false);
-    setData('');
   };
 
   var inputHandler = text => {
     updateText(text);
   };
+
+  const list = () => {
+    return data.map(( element, index) => {
+  
+      return (
+        <View key={index} style={{margin: 10}}>
+          <Text>{JSON.stringify(element)}</Text>
+        </View>
+      );
+    });
+  };
+
   return (
     <View>
       <View style={styles.container}>
@@ -92,15 +79,19 @@ const App = () => {
 
       <View>{loading && <Text>Loading....</Text>}</View>
 
-      <View>{data ? <Text>No data</Text> : null}</View>
+      <View>{message && <Text>{message}</Text>}</View>
 
-      <View>
+      {/* <View>{data ? <Text>{data}</Text> : null}</View> */}
+
+      <View>{data.length === 0 ? null : list()}</View>
+
+      {/* <View>
         {truecallerData.data && <Text>Truecaller: {truecallerData.data}</Text>}
       </View>
 
       <View>
         {paystackData.data && <Text>Paystack: {paystackData.data}</Text>}
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -128,3 +119,53 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+const prefix =
+  '024' ||
+  '054' ||
+  '055' ||
+  '059' ||
+  '025' ||
+  '020' ||
+  '050' ||
+  '027' ||
+  '057' ||
+  '026' ||
+  '056';
+
+const networkCodes = [
+  {mtn: ['024', '054', '055', '059', '025']},
+  {vodafone: ['020', '050']},
+  {airteltigo: ['027', '057', '026', '056']},
+];
+
+const bankIDs = {
+  mtn: {
+    id: 28,
+    code: 'MTN',
+  },
+  vodafone: {
+    id: 66,
+    code: 'VOD',
+  },
+  airteltigo: {
+    id: 29,
+    code: 'ATL',
+  },
+};
+
+const getCode = data => {
+  const slicedPhone = data.slice(0, 3);
+
+  console.log(slicedPhone);
+
+  if (networkCodes[0].mtn.includes(slicedPhone)) {
+    return bankIDs.mtn.code;
+  }
+
+  if (networkCodes[1].vodafone.includes(slicedPhone)) {
+    return bankIDs.vodafone.code;
+  }
+
+  return bankIDs.airteltigo.code;
+};

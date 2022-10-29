@@ -9,16 +9,18 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import {parsePhoneNumber} from 'awesome-phonenumber';
-import {localhost} from './config';
+import {localhost, prodhost, auth_token} from './config';
 import axios from 'axios';
 
 const App = () => {
+  axios.defaults.headers.common['Authorization'] = auth_token;
+
   const [loading, setLoading] = React.useState(false);
   let countryCode = 'GH';
 
   const [text, updateText] = React.useState(null);
   const [message, setMessage] = React.useState(null);
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState(null);
 
   const handlePress = async () => {
     setLoading(true);
@@ -33,17 +35,15 @@ const App = () => {
 
     const phone = pn.getNumber('significant');
     const updated = `0${phone}`;
+
     try {
-      axios
-        .get(`https://name-node-rest-api.herokuapp.com/api/id/${updated}`)
-        .then(res => {
-          console.log({res: res.data});
-          const posts = res.data;
-          setData(posts);
-          setLoading(false);
-        });
+      axios.get(`${localhost}/${updated}`).then(res => {
+        const posts = res.data;
+        setData(posts);
+        setLoading(false);
+      });
     } catch (error) {
-      console.log(error);
+      setMessage(error);
     }
   };
 
@@ -51,15 +51,36 @@ const App = () => {
     updateText(text);
   };
 
-  const list = () => {
-    return data.map(( element, index) => {
-  
-      return (
-        <View key={index} style={{margin: 10}}>
-          <Text>{JSON.stringify(element)}</Text>
-        </View>
-      );
-    });
+  // const list = () => {
+  //   return data.map((element, index) => {
+  //     return (
+  //       <View key={index} style={{margin: 10}}>
+  //         <Text>{JSON.stringify(element)}</Text>
+  //       </View>
+  //     );
+  //   });
+  // };
+
+  const list2 = () => {
+    return (
+      <View style={{margin: 10}}>
+        {!data ? (
+          <Text>No Data</Text>
+        ) : (
+          <View>
+            <Text>{data.name}</Text>
+            <Text>{data.other_name}</Text>
+            <Text>{data.email}</Text>
+            <Text>{data.gender}</Text>
+            <Text>{data.image}</Text>
+            <Text>{data.countryCode}</Text>
+            <Text>{data.e164Format}</Text>
+            <Text>{data.numberType}</Text>
+            <Text>{data.bank_id}</Text>
+          </View>
+        )}
+      </View>
+    );
   };
 
   return (
@@ -70,6 +91,7 @@ const App = () => {
           onChangeText={inputHandler}
           placeholder="Type an email!"
           keyboardType="email-address"
+          defaultValue={text}
         />
 
         <View style={styles.pagesButton}>
@@ -77,21 +99,9 @@ const App = () => {
         </View>
       </View>
 
-      <View>{loading && <Text>Loading....</Text>}</View>
+      <View>{loading ? <Text>Loading....</Text> : list2()}</View>
 
       <View>{message && <Text>{message}</Text>}</View>
-
-      {/* <View>{data ? <Text>{data}</Text> : null}</View> */}
-
-      <View>{data.length === 0 ? null : list()}</View>
-
-      {/* <View>
-        {truecallerData.data && <Text>Truecaller: {truecallerData.data}</Text>}
-      </View>
-
-      <View>
-        {paystackData.data && <Text>Paystack: {paystackData.data}</Text>}
-      </View> */}
     </View>
   );
 };
@@ -119,53 +129,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-
-const prefix =
-  '024' ||
-  '054' ||
-  '055' ||
-  '059' ||
-  '025' ||
-  '020' ||
-  '050' ||
-  '027' ||
-  '057' ||
-  '026' ||
-  '056';
-
-const networkCodes = [
-  {mtn: ['024', '054', '055', '059', '025']},
-  {vodafone: ['020', '050']},
-  {airteltigo: ['027', '057', '026', '056']},
-];
-
-const bankIDs = {
-  mtn: {
-    id: 28,
-    code: 'MTN',
-  },
-  vodafone: {
-    id: 66,
-    code: 'VOD',
-  },
-  airteltigo: {
-    id: 29,
-    code: 'ATL',
-  },
-};
-
-const getCode = data => {
-  const slicedPhone = data.slice(0, 3);
-
-  console.log(slicedPhone);
-
-  if (networkCodes[0].mtn.includes(slicedPhone)) {
-    return bankIDs.mtn.code;
-  }
-
-  if (networkCodes[1].vodafone.includes(slicedPhone)) {
-    return bankIDs.vodafone.code;
-  }
-
-  return bankIDs.airteltigo.code;
-};

@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button, Image} from 'react-native';
 import {parsePhoneNumber} from 'awesome-phonenumber';
 import {localhost, prodhost, auth_token} from './config';
 import axios from 'axios';
@@ -25,6 +25,7 @@ const App = () => {
   const handlePress = async () => {
     setLoading(true);
     setMessage(null);
+    setData(null);
     const pn = parsePhoneNumber(text, countryCode);
 
     if (pn.isValid() === false) {
@@ -43,6 +44,7 @@ const App = () => {
         setLoading(false);
       });
     } catch (error) {
+      setLoading(false);
       setMessage(error);
     }
   };
@@ -50,16 +52,6 @@ const App = () => {
   var inputHandler = text => {
     updateText(text);
   };
-
-  // const list = () => {
-  //   return data.map((element, index) => {
-  //     return (
-  //       <View key={index} style={{margin: 10}}>
-  //         <Text>{JSON.stringify(element)}</Text>
-  //       </View>
-  //     );
-  //   });
-  // };
 
   const list2 = () => {
     return (
@@ -77,6 +69,10 @@ const App = () => {
             <Text>{data.e164Format}</Text>
             <Text>{data.numberType}</Text>
             <Text>{data.bank_id}</Text>
+            <Image
+              source={{uri: data.image}}
+              style={{width: 400, height: 400}}
+            />
           </View>
         )}
       </View>

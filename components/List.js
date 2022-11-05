@@ -17,7 +17,6 @@ export default function List({data}) {
         <Text>{data.other_name}</Text>
         <Text>{data.email}</Text>
         <Text>{data.gender}</Text>
-        <Text>{data.image}</Text>
         <Text>{data.countryCode}</Text>
         <Text>{data.e164Format}</Text>
         <Text>{data.numberType}</Text>
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   image: {
-    width: 400,
+    width: 350,
     height: 400,
   },
 });

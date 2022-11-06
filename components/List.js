@@ -13,15 +13,19 @@ export default function List({data}) {
   return (
     <View style={styles.view}>
       <View>
-        <Text>{data.name}</Text>
-        <Text>{data.other_name}</Text>
-        <Text>{data.email}</Text>
-        <Text>{data.gender}</Text>
-        <Text>{data.countryCode}</Text>
-        <Text>{data.e164Format}</Text>
-        <Text>{data.numberType}</Text>
-        <Text>{data.bank_id}</Text>
-        <Image source={{uri: data.image}} style={styles.image} />
+        <>{data.name ? <Text>{data.name}</Text> : null}</>
+        <>{data.other_name ? <Text>{data.other_name}</Text> : null}</>
+        <>{data.email ? <Text>{data.email}</Text> : null}</>
+        <>{data.gender ? <Text>{data.gender}</Text> : null}</>
+        <>{data.countryCode ? <Text>{data.countryCode}</Text> : null}</>
+        <>{data.e164Format ? <Text>{data.e164Format}</Text> : null}</>
+        <>{data.numberType ? <Text>{data.numberType}</Text> : null}</>
+        <>{data.bank_id ? <Text>{data.bank_id}</Text> : null}</>
+        <>
+          {data.image ? (
+            <Image source={{uri: data.image}} style={styles.image} />
+          ) : null}
+        </>
       </View>
     </View>
   );

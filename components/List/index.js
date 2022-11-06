@@ -1,5 +1,6 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {Text, View, Image} from 'react-native';
 import React from 'react';
+import {styles} from './styles';
 
 export default function List({data}) {
   if (!data) {
@@ -30,13 +31,3 @@ export default function List({data}) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  view: {
-    margin: 10,
-  },
-  image: {
-    width: 350,
-    height: 400,
-  },
-});

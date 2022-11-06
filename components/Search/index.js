@@ -8,6 +8,7 @@ import {styles} from './styles';
 
 const Search = () => {
   axios.defaults.headers.common['Authorization'] = auth_token;
+  const env = 'local';
 
   const [loading, setLoading] = React.useState(false);
   let countryCode = 'GH';
@@ -31,8 +32,13 @@ const Search = () => {
     const phone = pn.getNumber('significant');
     const updated = `0${phone}`;
 
+    const local = `${localhost}/${updated}`;
+    const cloud = `${prodhost}/${updated}`;
+
+    const live = env === 'local' ? local : cloud;
+
     try {
-      axios.get(`${localhost}/${updated}`).then(res => {
+      axios.get(live).then(res => {
         const posts = res.data;
         setData(posts);
         setLoading(false);

@@ -1,9 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {Text, View, TextInput, Button} from 'react-native';
 import {parsePhoneNumber} from 'awesome-phonenumber';
-import {localhost, prodhost, auth_token} from '../config';
+import {localhost, prodhost, auth_token} from '../../config';
 import axios from 'axios';
-import List from './List';
+import List from '../List';
+import {styles} from './styles';
 
 const Search = () => {
   axios.defaults.headers.common['Authorization'] = auth_token;
@@ -67,27 +68,5 @@ const Search = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'grey',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 5,
-  },
-
-  input: {
-    width: '80%',
-    padding: 5,
-    height: 40,
-    borderWidth: 1,
-    borderRadius: 6,
-    fontSize: 22,
-    textAlign: 'center',
-    backgroundColor: 'lightgrey',
-    borderColor: 'black',
-  },
-});
 
 export default Search;

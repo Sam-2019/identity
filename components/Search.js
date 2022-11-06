@@ -62,9 +62,8 @@ const Search = () => {
         </View>
       </View>
 
-      <View>{loading ? <Text>Loading....</Text> : <List data={data} />}</View>
-
-      <View>{message && <Text>{message}</Text>}</View>
+      {loading ? <Text>Loading....</Text> : <List data={data} />}
+      {message && <Text>{message}</Text>}
     </View>
   );
 };

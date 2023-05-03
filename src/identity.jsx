@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Input from "./components/input";
 import Profile from "./components/profile/";
-import { endpoint } from "./components/hooks";
+import { endpoint } from "./utils";
 import axios from "axios";
 
 axios.defaults.headers.common["Authorization"] = import.meta.env.VITE_SOME_KEY;

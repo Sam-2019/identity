@@ -5,9 +5,10 @@ import {
  PhoneIcon,
  EnvelopeIcon,
 } from "@heroicons/react/20/solid";
-import { people, classNames } from "../utils";
+import { people, classNames } from "../../utils";
 
-function Profile() {
+// eslint-disable-next-line react/prop-types
+function Details({ data }) {
  return (
   <div className="pt-5 sm:pt-5 rounded-md">
    <div className="bg-white shadow-xl rounded-lg bg-white shadow">
@@ -23,7 +24,7 @@ function Profile() {
       <div>
        <div className="flex items-center">
         <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
-         {people.name}
+         {data.name}
         </h3>
        </div>
        <p className="text-sm text-gray-500">{people.handle}</p>
@@ -141,4 +142,4 @@ function Profile() {
  );
 }
 
-export default Profile;
+export default Details;

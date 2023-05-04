@@ -1,10 +1,10 @@
 import { useState } from "react";
+import axios from "axios";
 import Input from "./components/input";
 import Profile from "./components/profile/";
 import { endpoint, authorization } from "./utils";
-import axios from "axios";
 
-axios.defaults.headers.common["Authorization"] = authorization
+axios.defaults.headers.common["Authorization"] = authorization;
 
 function Identity() {
  const [input, setInput] = useState("");
@@ -38,7 +38,7 @@ function Identity() {
      handleSearch={handleSearch}
      loading={loading}
     />
-    {profile && <Profile data={query} />}
+    {profile && <Profile data={query} loading={loading} />}
    </div>
   </>
  );

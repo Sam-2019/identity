@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Input from "./components/input";
 import Profile from "./components/profile/";
-import { endpoint } from "./utils";
+import { endpoint, authorization } from "./utils";
 import axios from "axios";
 
-axios.defaults.headers.common["Authorization"] = import.meta.env.VITE_SOME_KEY;
+axios.defaults.headers.common["Authorization"] = authorization
 
 function Identity() {
  const [input, setInput] = useState("");

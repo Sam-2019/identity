@@ -1,4 +1,5 @@
-// eslint-disable-next-line react/prop-types
+import PropTypes from "prop-types";
+
 function Input({ input, setInput, handleSearch, loading }) {
  return (
   <div className="flex rounded-md">
@@ -27,3 +28,10 @@ function Input({ input, setInput, handleSearch, loading }) {
 }
 
 export default Input;
+
+Input.propTypes = {
+ input: PropTypes.string,
+ setInput: PropTypes.string,
+ handleSearch: PropTypes.func,
+ loading: PropTypes.bool,
+};

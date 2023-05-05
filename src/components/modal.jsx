@@ -4,6 +4,7 @@ import {
  ExclamationTriangleIcon,
  XMarkIcon,
 } from "@heroicons/react/24/outline";
+import PropTypes from "prop-types";
 import { getErrorTitle, getErrorMessage } from "../utils";
 
 export default function Modal({ message, alert, setAlert }) {
@@ -71,3 +72,9 @@ export default function Modal({ message, alert, setAlert }) {
   </Transition.Root>
  );
 }
+
+Modal.propTypes = {
+ alert: PropTypes.bool,
+ setAlert: PropTypes.bool,
+ message: PropTypes.string,
+};

@@ -3,6 +3,7 @@ import axios from "axios";
 import Input from "./components/input";
 import Profile from "./components/profile/";
 import { endpoint, authorization } from "./utils";
+import Modal from "./components/modal";
 
 axios.defaults.headers.common["Authorization"] = authorization;
 
@@ -11,6 +12,8 @@ function Identity() {
  const [query, setQuery] = useState({});
  const [profile, setProfile] = useState(false);
  const [loading, setLoading] = useState(false);
+ const [alert, setAlert] = useState(false);
+ const [message, setMessage] = useState("");
 
  const handleSearch = async () => {
   if (!input) return;
@@ -23,6 +26,8 @@ function Identity() {
    setLoading(false);
   } catch (error) {
    setLoading(false);
+   setMessage(error.message);
+   setAlert(true);
    console.error(error);
   } finally {
    setInput("");
@@ -31,14 +36,17 @@ function Identity() {
 
  return (
   <>
-   <div className="container mx-auto px-4 py-5">
-    <Input
-     input={input}
-     setInput={setInput}
-     handleSearch={handleSearch}
-     loading={loading}
-    />
-    {profile && <Profile data={query} loading={loading} />}
+   <div className="container mx-auto max-w-md px-4 py-5">
+    <div className="mt-2 w-full">
+     <Input
+      input={input}
+      setInput={setInput}
+      handleSearch={handleSearch}
+      loading={loading}
+     />
+     {profile && <Profile data={query} loading={loading} />}
+     <Modal message={message} alert={alert} setAlert={setAlert} />
+    </div>
    </div>
   </>
  );

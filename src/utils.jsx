@@ -20,3 +20,35 @@ export const people = {
   "https://images.unsplash.com/photo-1501031170107-cfd33f0cbdcc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&h=600&q=80",
  bio: "Enim feugiat ut ipsum, neque ut. Tristique mi id elementum praesent. Gravida in tempus feugiat netus enim aliquet a, quam scelerisque. Dictumst in convallis nec in bibendum aenean arcu.",
 };
+
+const messages = {
+ network_error: {
+  error: "Network Error",
+  message:
+   "Connection to the internet has been lost or interfered with, the site has been deleted or moved, or the site is experiencing too much traffic and is temporarily down. Refresh the page a few times and then try again",
+ },
+};
+
+export const getErrorMessage = (data) => {
+ if (!data) {
+  return;
+ }
+
+ if (messages.network_error.error.includes(data)) {
+  return messages.network_error.message;
+ }
+
+ return null;
+};
+
+export const getErrorTitle = (data) => {
+ if (!data) {
+  return;
+ }
+
+ if (messages.network_error.error.includes(data)) {
+  return messages.network_error.error;
+ }
+
+ return null;
+};

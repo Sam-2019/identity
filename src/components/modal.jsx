@@ -75,6 +75,6 @@ export default function Modal({ message, alert, setAlert }) {
 
 Modal.propTypes = {
  alert: PropTypes.bool,
- setAlert: PropTypes.bool,
+ setAlert: PropTypes.func,
  message: PropTypes.string,
 };

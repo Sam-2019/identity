@@ -31,7 +31,7 @@ export default Input;
 
 Input.propTypes = {
  input: PropTypes.string,
- setInput: PropTypes.string,
+ setInput: PropTypes.func,
  handleSearch: PropTypes.func,
  loading: PropTypes.bool,
 };

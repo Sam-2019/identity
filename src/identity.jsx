@@ -44,7 +44,7 @@ function Identity() {
       handleSearch={handleSearch}
       loading={loading}
      />
-     {profile && <Profile data={query} loading={loading} />}
+     {profile && <Profile details={query} loading={loading} />}
      <Modal message={message} alert={alert} setAlert={setAlert} />
     </div>
    </div>

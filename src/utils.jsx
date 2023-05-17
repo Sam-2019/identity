@@ -26,7 +26,7 @@ export const getErrorMessage = (data) => {
   return messages.network_error.message;
  }
 
- return null;
+ return data;
 };
 
 export const getErrorTitle = (data) => {
@@ -38,5 +38,5 @@ export const getErrorTitle = (data) => {
   return messages.network_error.error;
  }
 
- return null;
+ return "Error";
 };

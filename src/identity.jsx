@@ -5,8 +5,6 @@ import Profile from "./components/profile/";
 import { endpoint, authorization } from "./utils";
 import Modal from "./components/modal";
 
-axios.defaults.headers.common["Authorization"] = authorization;
-
 function Identity() {
  const [input, setInput] = useState("");
  const [query, setQuery] = useState({});
@@ -15,12 +13,18 @@ function Identity() {
  const [alert, setAlert] = useState(false);
  const [message, setMessage] = useState("");
 
+ const axiosConfig = {
+  headers: {
+   Authorization: authorization,
+  },
+ };
+
  const handleSearch = async () => {
   if (!input) return;
 
   setLoading(true);
   try {
-   const response = await axios.get(`${endpoint}/${input}`);
+   const response = await axios.get(`${endpoint}/${input}`, axiosConfig);
 
    if (response.statusText === "OK") {
     setProfile(true);

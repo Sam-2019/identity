@@ -6,7 +6,6 @@ import { endpoint, authorization } from "./utils";
 import Modal from "./components/modal";
 
 axios.defaults.headers.common["Authorization"] = authorization;
-console.log({endpoint})
 
 function Identity() {
  const [input, setInput] = useState("");
@@ -22,10 +21,16 @@ function Identity() {
   setLoading(true);
   try {
    const response = await axios.get(`${endpoint}/${input}`);
-   setProfile(true);
-   setQuery(response.data);
-   setLoading(false);
-   console.log({response})
+
+   if (response.statusText === "OK") {
+    setProfile(true);
+    setQuery(response.data);
+    setLoading(false);
+   } else {
+    setLoading(false);
+    setMessage(response.data.message);
+    setAlert(true);
+   }
   } catch (error) {
    setLoading(false);
    setMessage(error.message);

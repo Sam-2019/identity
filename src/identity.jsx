@@ -6,6 +6,7 @@ import { endpoint, authorization } from "./utils";
 import Modal from "./components/modal";
 
 axios.defaults.headers.common["Authorization"] = authorization;
+console.log({endpoint})
 
 function Identity() {
  const [input, setInput] = useState("");

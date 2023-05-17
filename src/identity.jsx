@@ -25,6 +25,7 @@ function Identity() {
    setProfile(true);
    setQuery(response.data);
    setLoading(false);
+   console.log({response})
   } catch (error) {
    setLoading(false);
    setMessage(error.message);

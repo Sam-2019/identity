@@ -40,3 +40,15 @@ export const getErrorTitle = (data) => {
 
  return "Error";
 };
+
+export const email_validator = (data) => {
+ if (!data) {
+  return false;
+ }
+
+ if (data.includes("@")) {
+  return true;
+ }
+
+ return false;
+};

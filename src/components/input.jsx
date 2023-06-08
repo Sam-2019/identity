@@ -21,7 +21,7 @@ function Input({ input, setInput, handleSearch, loading }) {
     disabled={loading}
     className="ml-2 px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 rounded-full"
    >
-    Search
+    {loading ? "Loading..." : "Search"}
    </button>
   </div>
  );

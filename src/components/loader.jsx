@@ -8,7 +8,7 @@ import {
 function Loader() {
  return (
   <div className="pt-5 sm:pt-5 rounded-md animate-pulse">
-   <div className="bg-white shadow-xl rounded-lg bg-white shadow">
+   <div className="bg-white shadow-xl rounded-lg">
     <div className="relative h-40 sm:h-56 rounded-t-lg bg-gradient-to-r from-cyan-500 to-blue-500" />
     <div className="mt-6 px-4 sm:mt-8 sm:flex sm:items-end sm:px-6">
      <div className="sm:flex-1">
@@ -19,8 +19,7 @@ function Loader() {
       <div className="-mt-px flex divide-x divide-gray-200"></div>
       <div className="mt-5 flex flex-wrap space-x-2 sm:space-x-3 sm:space-y-0">
        <a
-        className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 border border-transparent text-sm font-semibold text-gray-900
-            inline-flex w-full rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50
+        className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 border border-transparent text-gray-900 rounded-md bg-white px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50
             "
        >
         <PhoneIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -28,8 +27,7 @@ function Loader() {
        </a>
 
        <a
-        className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 border border-transparent text-sm font-semibold text-gray-900
-            inline-flex w-full rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50
+        className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 border border-transparent text-sm rounded-md bg-white px-3 py-2 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50
             "
        >
         <EnvelopeIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />

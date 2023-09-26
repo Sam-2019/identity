@@ -3,22 +3,21 @@ import Empty from "./empty";
 import Skeleton from "./skeleton";
 import PropTypes from "prop-types";
 
-// eslint-disable-next-line react/prop-types
 function Profile({ details, loading }) {
- if (loading) {
-  return <Skeleton />;
- }
+  if (loading) {
+    return <Skeleton />;
+  }
 
- if (!details) {
-  return <Empty />;
- }
+  if (!details) {
+    return <Empty />;
+  }
 
- return <Details details={details} />;
+  return <Details details={details} />;
 }
 
 export default Profile;
 
 Profile.propTypes = {
- details: PropTypes.object,
- loading: PropTypes.bool,
+  details: PropTypes.object,
+  loading: PropTypes.bool,
 };

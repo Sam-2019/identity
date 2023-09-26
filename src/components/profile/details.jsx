@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 function Details({ details }) {
  return (
   <div className="pt-5 sm:pt-5 rounded-md">
-   <div className="bg-white shadow-xl rounded-lg bg-white shadow">
+   <div className="bg-white rounded-lg shadow">
     <div className="relative h-40 sm:h-56">
      <img
       className="absolute h-full w-full object-cover rounded-t-lg"
@@ -27,8 +27,8 @@ function Details({ details }) {
       <div className="mt-5 flex flex-wrap space-x-2 sm:space-x-3 sm:space-y-0">
        <a
         href={details.rfc3966}
-        className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 border border-transparent text-sm font-semibold text-gray-900
-            inline-flex w-full rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50
+        className="relative w-0 flex-1 items-center justify-center gap-x-3 border border-transparent
+            inline-flex rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50
             "
        >
         <PhoneIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -38,8 +38,7 @@ function Details({ details }) {
        {email_validator(details.email) ? (
         <a
          href={`mailto: ${details.email}`}
-         className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 border border-transparent text-sm font-semibold text-gray-900
-            inline-flex w-full rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50
+         className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 border border-transparent text-sm font-semibold text-gray-900 rounded-md bg-white px-3 py-2 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50
             "
         >
          <EnvelopeIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />

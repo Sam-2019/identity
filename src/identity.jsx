@@ -6,61 +6,68 @@ import { endpoint, authorization } from "./utils";
 import Modal from "./components/modal";
 
 function Identity() {
- const [input, setInput] = useState("");
- const [query, setQuery] = useState({});
- const [profile, setProfile] = useState(false);
- const [loading, setLoading] = useState(false);
- const [alert, setAlert] = useState(false);
- const [message, setMessage] = useState("");
+  const [input, setInput] = useState("");
+  const [query, setQuery] = useState({});
+  const [profile, setProfile] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
 
- const axiosConfig = {
-  headers: {
-   Authorization: authorization,
-  },
- };
+  const axiosConfig = {
+    headers: {
+      Authorization: authorization,
+    },
+  };
 
- const handleSearch = async () => {
-  if (!input) return;
+  const handleSearch = async () => {
+    if (!input) {
+      setMessage("Query can't be blank");
+      setAlert(true);
+      return;
+    }
 
-  setLoading(true);
-  try {
-   const response = await axios.get(`${endpoint}/${input}`, axiosConfig);
+    setLoading(true);
+    try {
+      const response = await axios.get(`${endpoint}/${input}`, axiosConfig);
 
-   if (response.statusText === "OK") {
-    setProfile(true);
-    setQuery(response.data);
-    setLoading(false);
-   } else {
-    setLoading(false);
-    setMessage(response.data.message);
-    setAlert(true);
-   }
-  } catch (error) {
-   setLoading(false);
-   setMessage(error.message);
-   setAlert(true);
-   console.error(error);
-  } finally {
-   setInput("");
-  }
- };
+      if (response.statusText === "OK") {
+        setProfile(true);
+        setQuery(response.data);
+        setLoading(false);
+      } else {
+        setLoading(false);
+        setMessage(response.data.message);
+        setAlert(true);
+      }
+    } catch (error) {
+      setLoading(false);
+      setMessage(error.message);
+      setAlert(true);
+      console.error(error);
+    } finally {
+      setInput("");
+    }
+  };
 
- return (
-  <>
-   <div className="container mx-auto max-w-md px-4 py-5">
-    <div className="mt-2 w-full">
-     <Input
-      input={input}
-      setInput={setInput}
-      handleSearch={handleSearch}
-      loading={loading}
-     />
-     {profile && <Profile details={query} loading={loading} />}
-     <Modal message={message} alert={alert} setAlert={setAlert} />
+  return (
+    <div className="container mx-auto max-w-md px-4 py-5">
+      <div className="mt-2 w-full">
+        <Input
+          input={input}
+          setInput={setInput}
+          handleSearch={handleSearch}
+          loading={loading}
+        />
+        {profile && <Profile details={query} loading={loading} />}
+        <Modal
+          message={message}
+          setMessage={setMessage}
+          alert={alert}
+          setAlert={setAlert}
+        />
+      </div>
     </div>
-   </div>
-  </>
- );
+  );
 }
 
 export default Identity;

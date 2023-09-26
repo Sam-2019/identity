@@ -41,7 +41,7 @@ function Identity() {
       }
     } catch (error) {
       setLoading(false);
-      setMessage(error.message);
+      setMessage("Invalid request");
       setAlert(true);
       console.error(error);
     } finally {

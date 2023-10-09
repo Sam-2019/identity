@@ -2,12 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import Input from "./components/input";
 import Profile from "./components/profile/";
-import { endpoint, authorization } from "./utils";
+import { endpoint, authorization, INVALID_REQUEST } from "./utils";
 import Modal from "./components/modal";
+import Skeleton from "./components/profile/skeleton";
 
 function Identity() {
   const [input, setInput] = useState("");
-  const [query, setQuery] = useState({});
+  const [query, setQuery] = useState(null);
   const [profile, setProfile] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -27,6 +28,7 @@ function Identity() {
     }
 
     setLoading(true);
+    setProfile(false);
     try {
       const response = await axios.get(`${endpoint}/${input}`, axiosConfig);
 
@@ -35,15 +37,14 @@ function Identity() {
         setQuery(response.data);
         setLoading(false);
       } else {
-        setLoading(false);
         setMessage(response.data.message);
         setAlert(true);
+        setLoading(false);
       }
     } catch (error) {
       setLoading(false);
-      setMessage("Invalid request");
+      setMessage(error?.response?.data?.message || INVALID_REQUEST);
       setAlert(true);
-      console.error(error);
     } finally {
       setInput("");
     }
@@ -58,7 +59,8 @@ function Identity() {
           handleSearch={handleSearch}
           loading={loading}
         />
-        {profile && <Profile details={query} loading={loading} />}
+        {loading && <Skeleton />}
+        {profile && <Profile details={query} />}
         <Modal
           message={message}
           setMessage={setMessage}

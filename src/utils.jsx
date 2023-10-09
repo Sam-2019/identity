@@ -4,6 +4,8 @@ export const dev_endpoint = import.meta.env.VITE_DEV_API_URL;
 export const prod_endpoint = import.meta.env.VITE_PROD_API_URL;
 
 export const endpoint = env != "development" ? prod_endpoint : dev_endpoint;
+export const NO_DATA = "ID not found";
+export const INVALID_REQUEST = "Invalid request";
 
 export const classNames = (...classes) => {
  return classes.filter(Boolean).join(" ");

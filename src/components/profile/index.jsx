@@ -1,14 +1,10 @@
+import { NO_DATA } from "../../utils";
 import Details from "./details";
 import Empty from "./empty";
-import Skeleton from "./skeleton";
 import PropTypes from "prop-types";
 
-function Profile({ details, loading }) {
-  if (loading) {
-    return <Skeleton />;
-  }
-
-  if (!details) {
+function Profile({ details }) {
+  if (details.message === NO_DATA) {
     return <Empty />;
   }
 

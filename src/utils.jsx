@@ -6,6 +6,8 @@ export const prod_endpoint = import.meta.env.VITE_PROD_API_URL;
 export const endpoint = env != "development" ? prod_endpoint : dev_endpoint;
 export const NO_DATA = "ID not found";
 export const INVALID_REQUEST = "Invalid request";
+export const INVALID_INPUT = "Invalid input";
+export const BLANK_QUERY = "Query can't be blank"
 
 export const classNames = (...classes) => {
  return classes.filter(Boolean).join(" ");

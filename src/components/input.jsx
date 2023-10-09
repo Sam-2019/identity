@@ -1,13 +1,17 @@
 import PropTypes from "prop-types";
 
 function Input({ input, setInput, handleSearch, loading }) {
+  const handleInput = (e) => {
+    setInput(e.target.value);
+  };
+
   return (
     <div className="flex rounded-md">
       <div className="relative flex flex-grow items-stretch focus-within:z-10">
         <input
           required
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => handleInput(e)}
           type="number"
           name="name"
           id="name"

@@ -2,7 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import Input from "./components/input";
 import Profile from "./components/profile/";
-import { endpoint, authorization, INVALID_REQUEST } from "./utils";
+import {
+  endpoint,
+  authorization,
+  INVALID_REQUEST,
+  INVALID_INPUT,
+  BLANK_QUERY,
+} from "./utils";
 import Modal from "./components/modal";
 import Skeleton from "./components/profile/skeleton";
 
@@ -21,8 +27,14 @@ function Identity() {
   };
 
   const handleSearch = async () => {
+    if (input.length < 5) {
+      setMessage(INVALID_INPUT);
+      setAlert(true);
+      return;
+    }
+
     if (!input) {
-      setMessage("Query can't be blank");
+      setMessage(BLANK_QUERY);
       setAlert(true);
       return;
     }

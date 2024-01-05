@@ -1,6 +1,6 @@
 import { NO_DATA } from "../../utils";
 import Details from "./details";
-import Empty from "./empty";
+import Empty from "../empty";
 import PropTypes from "prop-types";
 
 function Profile({ details }) {

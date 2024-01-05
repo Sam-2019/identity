@@ -1,5 +1,3 @@
-
-
 export default function Banner() {
  return (
   <div className="relative flex justify-center gap-x-6 overflow-hidden bg-orange-600 px-6 py-2.5 sm:px-3.5">

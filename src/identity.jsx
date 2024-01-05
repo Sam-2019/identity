@@ -1,6 +1,3 @@
-import { useState } from "react";
-import axios from "axios";
-import Search from "./components/search";
 import {
   endpoint,
   authorization,
@@ -8,10 +5,13 @@ import {
   INVALID_INPUT,
   BLANK_QUERY,
 } from "./utils";
+import axios from "axios";
+import { useState } from "react";
 import Modal from "./components/modal";
-import Skeleton from "./components/profile/skeleton";
 import Empty from "./components/empty";
+import Search from "./components/search";
 import Details from "./components/profile/details";
+import Skeleton from "./components/profile/skeleton";
 
 function Identity() {
   const [input, setInput] = useState("");

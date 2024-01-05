@@ -17,46 +17,54 @@ function Identity() {
   const [query, setQuery] = useState(null);
   const [profile, setProfile] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState(false);
-  const [message, setMessage] = useState("");
-
-  const axiosConfig = {
-    headers: {
-      Authorization: authorization,
-    },
-  };
+  const [notify, setNotify] = useState({
+    alert: false,
+    message: "",
+  });
 
   const handleSearch = async () => {
     if (input.length < 5) {
-      setMessage(INVALID_INPUT);
-      setAlert(true);
+      setNotify({
+        alert: true,
+        message: INVALID_INPUT,
+      });
       return;
     }
 
     if (!input) {
-      setMessage(BLANK_QUERY);
-      setAlert(true);
+      setNotify({
+        alert: true,
+        message: BLANK_QUERY,
+      });
       return;
     }
 
     setLoading(true);
     setProfile(false);
     try {
-      const response = await axios.get(`${endpoint}/${input}`, axiosConfig);
+      const response = await axios.get(`${endpoint}/${input}`, {
+        headers: {
+          Authorization: authorization,
+        },
+      });
 
       if (response.statusText === "OK") {
         setProfile(true);
         setQuery(response.data);
         setLoading(false);
       } else {
-        setMessage(response.data.message);
-        setAlert(true);
+        setNotify({
+          alert: true,
+          message: response.data.message,
+        });
         setLoading(false);
       }
     } catch (error) {
       setLoading(false);
-      setMessage(error?.response?.data?.message || INVALID_REQUEST);
-      setAlert(true);
+      setNotify({
+        alert: true,
+        message: error?.response?.data?.message || INVALID_REQUEST,
+      });
     } finally {
       setInput("");
     }
@@ -73,12 +81,7 @@ function Identity() {
         />
         {loading && <Skeleton />}
         {profile && <Profile details={query} />}
-        <Modal
-          message={message}
-          setMessage={setMessage}
-          alert={alert}
-          setAlert={setAlert}
-        />
+        <Modal notify={notify} setNotify={setNotify} />
       </div>
     </div>
   );

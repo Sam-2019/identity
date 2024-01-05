@@ -7,10 +7,16 @@ import {
 import PropTypes from "prop-types";
 import { getErrorTitle, getErrorMessage } from "../utils";
 
-export default function Modal({ message, alert, setAlert }) {
+export default function Modal({ notify, setNotify }) {
+  const handleClose = () => [
+    setNotify({
+      alert: false,
+      message: "",
+    }),
+  ];
   return (
-    <Transition.Root show={alert} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setAlert}>
+    <Transition.Root show={notify.alert} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={handleClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -39,7 +45,7 @@ export default function Modal({ message, alert, setAlert }) {
                   <button
                     type="button"
                     className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none"
-                    onClick={() => setAlert(false)}
+                    onClick={handleClose}
                   >
                     <span className="sr-only">Close</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -57,11 +63,11 @@ export default function Modal({ message, alert, setAlert }) {
                       as="h3"
                       className="text-base font-semibold leading-6 text-gray-900"
                     >
-                      {getErrorTitle(message)}
+                      {getErrorTitle(notify.message)}
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        {getErrorMessage(message)}
+                        {getErrorMessage(notify.message)}
                       </p>
                     </div>
                   </div>
@@ -76,7 +82,10 @@ export default function Modal({ message, alert, setAlert }) {
 }
 
 Modal.propTypes = {
-  alert: PropTypes.bool,
-  setAlert: PropTypes.func,
-  message: PropTypes.string,
+  notify: PropTypes.object,
+  setNotify: PropTypes.func,
+  optionalObjectWithShape: PropTypes.shape({
+    alert: PropTypes.bool,
+    message: PropTypes.string,
+   }),
 };

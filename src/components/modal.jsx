@@ -8,12 +8,12 @@ import PropTypes from "prop-types";
 import { getErrorTitle, getErrorMessage } from "../utils";
 
 export default function Modal({ notify, setNotify }) {
-  const handleClose = () => [
+  const handleClose = () => {
     setNotify({
       alert: false,
       message: "",
-    }),
-  ];
+    });
+  };
   return (
     <Transition.Root show={notify.alert} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={handleClose}>
@@ -87,5 +87,5 @@ Modal.propTypes = {
   optionalObjectWithShape: PropTypes.shape({
     alert: PropTypes.bool,
     message: PropTypes.string,
-   }),
+  }),
 };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import Input from "./components/input";
+import Search from "./components/search";
 import Profile from "./components/profile/";
 import {
   endpoint,
@@ -65,7 +65,7 @@ function Identity() {
   return (
     <div className="container mx-auto max-w-md px-4 py-5">
       <div className="mt-2 w-full">
-        <Input
+        <Search
           input={input}
           setInput={setInput}
           handleSearch={handleSearch}

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import Search from "./components/search";
-import Profile from "./components/profile/";
 import {
   endpoint,
   authorization,
@@ -11,36 +10,28 @@ import {
 } from "./utils";
 import Modal from "./components/modal";
 import Skeleton from "./components/profile/skeleton";
+import Empty from "./components/empty";
+import Details from "./components/profile/details";
 
 function Identity() {
   const [input, setInput] = useState("");
   const [query, setQuery] = useState(null);
-  const [profile, setProfile] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [notify, setNotify] = useState({
     alert: false,
     message: "",
+    status: "idle",
   });
 
   const handleSearch = async () => {
-    if (input.length < 5) {
-      setNotify({
-        alert: true,
-        message: INVALID_INPUT,
-      });
+    const emptyInput = !input;
+    const inputCount = input.length < 5;
+
+    if (emptyInput || inputCount) {
+      setNotify({alert: true, message: emptyInput ? BLANK_QUERY : INVALID_INPUT, status: "rejection"});
       return;
     }
 
-    if (!input) {
-      setNotify({
-        alert: true,
-        message: BLANK_QUERY,
-      });
-      return;
-    }
-
-    setLoading(true);
-    setProfile(false);
+    setNotify({...notify, status: "pending"});
     try {
       const response = await axios.get(`${endpoint}/${input}`, {
         headers: {
@@ -49,22 +40,13 @@ function Identity() {
       });
 
       if (response.statusText === "OK") {
-        setProfile(true);
         setQuery(response.data);
-        setLoading(false);
+        setNotify({ ...notify, status: "successful"});
       } else {
-        setNotify({
-          alert: true,
-          message: response.data.message,
-        });
-        setLoading(false);
+        setNotify({ alert: true, message: response.data.message, status: "partial-rejection"});
       }
     } catch (error) {
-      setLoading(false);
-      setNotify({
-        alert: true,
-        message: error?.response?.data?.message || INVALID_REQUEST,
-      });
+      setNotify({alert: true,message: error?.response?.data?.message || INVALID_REQUEST,status: "rejection"});
     } finally {
       setInput("");
     }
@@ -77,11 +59,12 @@ function Identity() {
           input={input}
           setInput={setInput}
           handleSearch={handleSearch}
-          loading={loading}
+          status={notify.status}
         />
-        {loading && <Skeleton />}
-        {profile && <Profile details={query} />}
-        <Modal notify={notify} setNotify={setNotify} />
+        {notify.status === "pending" && <Skeleton />}
+        {notify.status === "partial-rejection" && <Empty />}
+        {notify.status === "successful" && <Details details={query} />}
+        {notify.status === "rejection" && <Modal notify={notify} setNotify={setNotify} /> }
       </div>
     </div>
   );

@@ -16,11 +16,7 @@ import Details from "./components/profile/details";
 function Identity() {
   const [input, setInput] = useState("");
   const [query, setQuery] = useState(null);
-  const [notify, setNotify] = useState({
-    alert: false,
-    message: "",
-    status: "idle",
-  });
+  const [notify, setNotify] = useState({alert: false, message: "", status: "idle"});
 
   const handleSearch = async () => {
     const emptyInput = !input;

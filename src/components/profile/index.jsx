@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import PropTypes from "prop-types";
 import { email_validator } from "../../utils";
 import { PhoneIcon, EnvelopeIcon } from "@heroicons/react/20/solid";
@@ -10,7 +11,7 @@ export const Profile = ({ children }) => {
   );
 };
 
-Profile.Image = function Image({ children }) {
+const Image = ({ children }) => {
   return (
     <div className="relative h-40 sm:h-56">
       <img
@@ -22,7 +23,7 @@ Profile.Image = function Image({ children }) {
   );
 };
 
-Profile.Name = function Name({ children }) {
+const Name = ({ children }) => {
   return (
     <div className="flex items-center">
       <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
@@ -32,11 +33,11 @@ Profile.Name = function Name({ children }) {
   );
 };
 
-Profile.OtherName = function OtherName({ children }) {
+const OtherName = ({ children }) => {
   return <p className="text-sm text-gray-500">{children}</p>;
 };
 
-Profile.Phone = function Phone({ children }) {
+const Phone = ({ children }) => {
   return (
     <a
       href={children}
@@ -50,7 +51,7 @@ Profile.Phone = function Phone({ children }) {
   );
 };
 
-Profile.Email = function Email({ children }) {
+const Email = ({ children }) => {
   return (
     <>
       {email_validator(children) ? (
@@ -67,7 +68,7 @@ Profile.Email = function Email({ children }) {
   );
 };
 
-Profile.Country = function Country({ children }) {
+const Country = ({ children }) => {
   return (
     <div className="px-2 py-5 sm:px-2">
       <dl className="space-y-5 px-4 sm:space-y-5">
@@ -81,6 +82,13 @@ Profile.Country = function Country({ children }) {
     </div>
   );
 };
+
+Profile.Image = Image;
+Profile.Name = Name;
+Profile.OtherName = OtherName;
+Profile.Phone = Phone;
+Profile.Email = Email;
+Profile.Country = Country;
 
 Profile.propTypes = {
   children: PropTypes.any,

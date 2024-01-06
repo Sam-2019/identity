@@ -49,7 +49,6 @@ function Identity() {
   };
 
   const stateViews = {
-    "idle": null,
     "pending": <Skeleton/>,
     "partial_rejection": <Empty/>,
     "successful": <Details details={query}/>,
@@ -65,7 +64,7 @@ function Identity() {
           handleSearch={handleSearch}
           status={notify.status}
         />
-        {stateViews[notify.status]}
+        {stateViews[notify.status] ?? null}
       </div>
     </div>
   );

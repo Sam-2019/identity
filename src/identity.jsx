@@ -39,7 +39,7 @@ function Identity() {
         setQuery(response.data);
         setNotify({ ...notify, status: "successful"});
       } else {
-        setNotify({ alert: true, message: response.data.message, status: "partial-rejection"});
+        setNotify({ alert: true, message: response.data.message, status: "partial_rejection"});
       }
     } catch (error) {
       setNotify({alert: true,message: error?.response?.data?.message || INVALID_REQUEST,status: "rejection"});
@@ -47,6 +47,14 @@ function Identity() {
       setInput("");
     }
   };
+
+  const stateViews = {
+    "idle": null,
+    "pending": <Skeleton/>,
+    "partial_rejection": <Empty/>,
+    "successful": <Details details={query}/>,
+    "rejection": <Modal notify={notify} setNotify={setNotify} />
+  }
 
   return (
     <div className="container mx-auto max-w-md px-4 py-5">
@@ -57,10 +65,7 @@ function Identity() {
           handleSearch={handleSearch}
           status={notify.status}
         />
-        {notify.status === "pending" && <Skeleton />}
-        {notify.status === "partial-rejection" && <Empty />}
-        {notify.status === "successful" && <Details details={query} />}
-        {notify.status === "rejection" && <Modal notify={notify} setNotify={setNotify} /> }
+        {stateViews[notify.status]}
       </div>
     </div>
   );

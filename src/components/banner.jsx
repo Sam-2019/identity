@@ -8,7 +8,7 @@ export default function Banner() {
        🇬🇭
       </span>
      </strong>
-     <span className="text-sm ml-2">ONLY</span>
+     <span className="text-sm ml-2 text-black">ONLY</span>
     </p>
    </div>
   

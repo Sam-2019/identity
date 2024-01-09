@@ -7,11 +7,13 @@ import {
 } from "./utils";
 import axios from "axios";
 import { useState } from "react";
-import Modal from "./components/modal";
-import Empty from "./components/empty";
-import Search from "./components/search";
-import Profile from "./components/profile";
-import Skeleton from "./components/skeleton";
+import loadable from '@loadable/component'
+
+const Modal = loadable(() => import("./components/modal")) 
+const Empty = loadable(() => import("./components/empty")) 
+const Search = loadable(() => import("./components/search")) 
+const Profile = loadable(() => import("./components/profile")) 
+const Skeleton = loadable(() => import("./components/skeleton")) 
 
 function Identity() {
   const [input, setInput] = useState("");

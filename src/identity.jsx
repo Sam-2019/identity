@@ -9,11 +9,11 @@ import axios from "axios";
 import { useState } from "react";
 import loadable from '@loadable/component'
 
-const Modal = loadable(() => import("./components/modal")) 
-const Empty = loadable(() => import("./components/empty")) 
-const Search = loadable(() => import("./components/search")) 
-const Profile = loadable(() => import("./components/profile")) 
-const Skeleton = loadable(() => import("./components/skeleton")) 
+const Modal = loadable(() => import("./components/modal"))
+const Empty = loadable(() => import("./components/empty"))
+const Search = loadable(() => import("./components/search"))
+const Profile = loadable(() => import("./components/profile"))
+const Skeleton = loadable(() => import("./components/skeleton"))
 
 function Identity() {
   const [input, setInput] = useState("");

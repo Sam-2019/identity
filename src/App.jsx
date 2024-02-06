@@ -1,7 +1,7 @@
-import Identity from "./identity";
-import "./App.css";
-import Banner from "./components/banner";
 import { Fragment } from "react";
+import Identity from "./identity";
+import Banner from "./components/banner";
+import "./App.css";
 
 function App() {
  return (

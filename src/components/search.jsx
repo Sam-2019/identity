@@ -18,7 +18,7 @@ function Search({ input, setInput, handleSearch, status }) {
       <button
         type="button"
         onClick={() => handleSearch()}
-        disabled={status === "pending" ? true : false}
+        disabled={status === "pending"}
         className="ml-2 px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 rounded-full"
       >
         {status === "pending" ? "Loading..." : "Search"}

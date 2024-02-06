@@ -4,6 +4,7 @@ import {
   INVALID_REQUEST,
   INVALID_INPUT,
   BLANK_QUERY,
+  NO_DATA,
 } from "./utils";
 import axios from "axios";
 import { useState } from "react";
@@ -37,7 +38,7 @@ function Identity() {
         },
       });
 
-      if (response.statusText === "OK") {
+      if (response.data?.message !== NO_DATA) {
         setQuery(response.data);
         setNotify({ ...notify, status: "successful"});
       } else {

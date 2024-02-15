@@ -5,8 +5,8 @@ import { PhoneIcon, EnvelopeIcon } from "@heroicons/react/20/solid";
 
 export const Details = ({ children }) => {
   return (
-    <div className="pt-5 sm:pt-5 rounded-md">
-      <div className="bg-white rounded-lg shadow">{children}</div>
+    <div className="mt-5">
+      <div className="bg-white rounded-lg shadow pb-5">{children}</div>
     </div>
   );
 };
@@ -125,7 +125,7 @@ const Telegram = ({ children }) => {
 
 const Country = ({ children }) => {
   return (
-    <div className="px-2 py-5 sm:px-2">
+    <div className="px-2 sm:px-2">
       <dl className="space-y-5 px-4 sm:space-y-5">
         <div>
           <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">

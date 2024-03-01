@@ -138,6 +138,21 @@ const Country = ({ children }) => {
   );
 };
 
+const Network = ({ children }) => {
+  return (
+    <div className="px-2 sm:px-2 mt-3">
+      <dl className="space-y-5 px-4 sm:space-y-5">
+        <div>
+          <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+            Provider
+          </dt>
+          <dd className="text-sm text-gray-900 sm:col-span-2">{children}</dd>
+        </div>
+      </dl>
+    </div>
+  );
+}
+
 Details.Image = Image;
 Details.Name = Name;
 Details.OtherName = OtherName;
@@ -146,6 +161,7 @@ Details.Email = Email;
 Details.Country = Country;
 Details.Whatsapp = Whatsapp;
 Details.Telegram = Telegram;
+Details.Network = Network;
 
 Details.propTypes = {
   children: PropTypes.any,
@@ -180,5 +196,9 @@ Details.Whatsapp.propTypes = {
 };
 
 Details.Telegram.propTypes = {
+  children: PropTypes.any,
+};
+
+Details.Network.propTypes = {
   children: PropTypes.any,
 };

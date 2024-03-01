@@ -24,7 +24,8 @@ function Profile({ details }) {
         {details?.whatsapp && <Details.Whatsapp>{link}</Details.Whatsapp>}
         {details?.telegram && <Details.Telegram>{link}</Details.Telegram>}
       </div>
-      <Details.Country>{details.country}</Details.Country>
+      {details?.country && <Details.Country>{details.country}</Details.Country>}
+      {details?.carrier && <Details.Network>{details.carrier}</Details.Network>}
     </Details>
   );
 }

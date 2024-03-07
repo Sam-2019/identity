@@ -15,7 +15,7 @@ const Image = ({ children }) => {
   return (
     <div className="relative h-40 sm:h-56">
       <img
-        className="absolute h-full w-full object-cover rounded-t-lg"
+        className="h-full w-full object-cover rounded-t-lg"
         src={children}
         alt="image"
       />
@@ -25,7 +25,7 @@ const Image = ({ children }) => {
 
 const Name = ({ children }) => {
   return (
-    <div className="flex items-center">
+    <div>
       <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
         {children}
       </h3>
@@ -34,18 +34,18 @@ const Name = ({ children }) => {
 };
 
 const OtherName = ({ children }) => {
-  return <p className="text-sm text-gray-500">{children}</p>;
+  return <div><p className="text-sm text-gray-500">{children}</p></div>
 };
 
 const Phone = ({ children }) => {
   return (
     <a
       href={children}
-      className="relative w-0 flex-1 items-center justify-center gap-x-3 border border-transparent
-      inline-flex rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50
+      className="flex flex-1 justify-center gap-x-2 border border-transparent
+      rounded-full bg-black p-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700
       "
     >
-      <PhoneIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+      <PhoneIcon className="h-5 w-5 text-white" aria-hidden="true" />
       Call
     </a>
   );
@@ -57,7 +57,8 @@ const Email = ({ children }) => {
       {email_validator(children) ? (
         <a
           href={`mailto: ${children}`}
-          className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 border border-transparent text-sm font-semibold text-gray-900 rounded-md bg-white px-3 py-2 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50
+          className="flex flex-1 justify-center gap-x-2 border border-transparent
+          rounded-full bg-gray-100 p-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200
         "
         >
           <EnvelopeIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -151,7 +152,7 @@ const Network = ({ children }) => {
       </dl>
     </div>
   );
-}
+};
 
 Details.Image = Image;
 Details.Name = Name;

@@ -8,21 +8,18 @@ function Profile({ details }) {
     <Details>
       <Details.Image>{details?.image}</Details.Image>
       <div className="mt-6 px-4 sm:mt-8 sm:flex sm:items-end sm:px-6">
-        <div className="sm:flex-1">
-          <div>
-            <Details.Name>{details?.name}</Details.Name>
-            <Details.OtherName>{details?.other_name}</Details.OtherName>
-          </div>
-          <div className="-mt-px flex divide-x divide-gray-200"></div>
-          <div className="mt-5 flex flex-wrap space-x-2 sm:space-x-3 sm:space-y-0">
+        <div>
+          <Details.Name>{details?.name}</Details.Name>
+          <Details.OtherName>{details?.other_name}</Details.OtherName>
+          <div className="mt-4 flex w-3/5 space-x-2 sm:space-x-3">
             <Details.Phone>{details?.phone}</Details.Phone>
             <Details.Email>{details?.email}</Details.Email>
           </div>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row gap-2 my-2">
-        {details?.whatsapp && <Details.Whatsapp>{link}</Details.Whatsapp>}
-        {details?.telegram && <Details.Telegram>{link}</Details.Telegram>}
+      <div className="flex flex-col md:flex-row gap-2 my-2 mx-4 md:mx-6">
+      {details?.whatsapp && <Details.Whatsapp>{link}</Details.Whatsapp> }
+      {details?.telegram && <Details.Telegram>{link}</Details.Telegram> }
       </div>
       {details?.country && <Details.Country>{details.country}</Details.Country>}
       {details?.carrier && <Details.Network>{details.carrier}</Details.Network>}

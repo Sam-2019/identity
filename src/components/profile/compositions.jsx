@@ -40,7 +40,7 @@ const OtherName = ({ children }) => {
 const Phone = ({ children }) => {
   return (
     <a
-      href={children}
+      href={`tel: ${children}`}
       className="flex flex-1 justify-center gap-x-2 border border-transparent
       rounded-full bg-black p-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700
       "

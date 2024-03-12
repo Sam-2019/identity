@@ -12,7 +12,7 @@ function Profile({ details }) {
           <Details.Name>{details?.name}</Details.Name>
           <Details.OtherName>{details?.other_name}</Details.OtherName>
           <div className="mt-4 flex w-3/5 space-x-2 sm:space-x-3">
-            <Details.Phone>{details?.phone}</Details.Phone>
+            <Details.Phone>{details?.e164Format}</Details.Phone>
             <Details.Email>{details?.email}</Details.Email>
           </div>
         </div>

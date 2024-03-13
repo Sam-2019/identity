@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 function Search({ input, setInput, handleSearch, status }) {
   return (
-    <div className="flex justify-center gap-x-2">
+    <div className="flex gap-x-2 w-full">
       <div className="w-9/12 items-stretch focus-within:z-10">
         <input
           required

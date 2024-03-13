@@ -75,7 +75,7 @@ function Identity() {
   };
 
   return (
-    <div className="container mx-auto max-w-md px-4 py-5">
+    <div className="container mx-auto max-w-md p-4">
       <div className="mt-2 w-full">
         <Search
           input={input}

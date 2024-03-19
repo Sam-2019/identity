@@ -41,9 +41,7 @@ const Phone = ({ children }) => {
   return (
     <a
       href={`tel: ${children}`}
-      className="flex flex-1 justify-center gap-x-2 border border-transparent
-      rounded-full bg-black p-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700
-      "
+      className="flex gap-x-1.5 border border-transparent rounded-full bg-rose-600 p-3 text-sm font-semibold text-white shadow-sm hover:bg-rose-700"
     >
       <PhoneIcon className="h-5 w-5 text-white" aria-hidden="true" />
       Call
@@ -57,9 +55,7 @@ const Email = ({ children }) => {
       {email_validator(children) ? (
         <a
           href={`mailto: ${children}`}
-          className="flex flex-1 justify-center gap-x-2 border border-transparent
-          rounded-full bg-gray-100 p-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200
-        "
+          className="flex gap-x-1.5 border border-transparent rounded-full bg-gray-100 p-3 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200"
         >
           <EnvelopeIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
           Email

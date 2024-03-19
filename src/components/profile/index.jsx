@@ -17,7 +17,7 @@ function Profile({ details }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row gap-2 my-2 mx-4 md:mx-6">
+      <div className="flex flex-col md:flex-row space-2 my-2 mx-4 md:mx-6">
       {details?.whatsapp && <Details.Whatsapp>{link}</Details.Whatsapp> }
       {details?.telegram && <Details.Telegram>{link}</Details.Telegram> }
       </div>
